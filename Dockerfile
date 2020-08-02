@@ -48,7 +48,7 @@ RUN cd /root && \
     make install 
 
 RUN cd /root && \
-    git clone https://github.com/wayland-project/weston.git -b 6.0 && \
+    git clone https://github.com/wayland-project/weston.git -b 7.0 && \
     cd weston && \
     meson build/ --prefix=/usr/local -Dimage-jpeg=false -Dimage-webp=false -Dlauncher-logind=false -Dbackend-rdp=false -Dxwayland=false \
     -Dsystemd=false -Dremoting=false -Dpipewire=false -Dsimple-dmabuf-drm=auto && \
@@ -56,7 +56,7 @@ RUN cd /root && \
     ldconfig
 
 RUN cd /root && \
-    git clone https://github.com/GENIVI/dlt-daemon.git && \
+    git clone https://github.com/GENIVI/dlt-daemon.git -b v2.18.5 && \
     cd dlt-daemon/ && \
     apt-get install -y cmake zlib1g-dev libdbus-glib-1-dev && \
     mkdir build && \
@@ -66,10 +66,15 @@ RUN cd /root && \
     make install && \
     ldconfig
 
+COPY ./settings/110.patch /root
 RUN cd /root && \
     apt-get install -y libpixman-1-0 && \
     git clone https://github.com/GENIVI/wayland-ivi-extension.git && \
     cd wayland-ivi-extension/ && \
+    git checkout 9bc63f152c48c5078bca8353c8d8f30293603257 && \
+    git config --local user.email "you@example.com" && \
+    git config --local user.name "Your Name" && \
+    git am /root/110.patch  && \
     mkdir build && \
     cd build && \
     cmake .. && \
