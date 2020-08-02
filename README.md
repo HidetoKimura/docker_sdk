@@ -70,3 +70,9 @@ $ weston --width 800 --height 600 &
 $ layer-add-surfaces 1000 10 &
 $ ./flutter_wayland ../external/asset_bundle/testbed
 ~~~
+
+# Docker save & load
+~~~
+docker save docker_sdk_app | gzip -c > docker_sdk.tar.gz
+cat docker_sdk.tar.gz | gzip -d | docker load
+~~~
