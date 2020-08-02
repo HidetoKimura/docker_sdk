@@ -62,3 +62,11 @@ $ cd build/linux/debug/bundle/
 $ ./testbed
 ~~~
 
+# weston
+- see flutter_wayland
+  https://github.com/HidetoKimura/flutter_wayland
+~~~
+$ weston --width 800 --height 600 &
+$ layer-add-surface 1000 10
+$ ./flutter_wayland ../external/asset_bundle/testbed
+~~~
